@@ -3,6 +3,8 @@ package com.utils.string.regex;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
+import com.utils.string.StrUtils;
+
 class RegexUtilsTest {
 
 	@Test
@@ -12,7 +14,7 @@ class RegexUtilsTest {
 		final String patternString;
 		final boolean caseSensitive;
 		final boolean expectedMatches;
-		final int input = Integer.parseInt("11");
+		final int input = StrUtils.tryParsePositiveInt("101");
 		if (input == 1) {
 
 			string = "SOMEthing";
@@ -36,19 +38,26 @@ class RegexUtilsTest {
 
 		} else if (input == 11) {
 
-            string = "Os_task_task";
-            patternString = "^(?!Os_).*";
-            caseSensitive = true;
-            expectedMatches = false;
+			string = "Os_task_task";
+			patternString = "^(?!Os_).*";
+			caseSensitive = true;
+			expectedMatches = false;
 
-        } else if (input == 12) {
+		} else if (input == 12) {
 
-            string = "abc_bcd";
-            patternString = "^(?!Os_).*";
-            caseSensitive = true;
-            expectedMatches = true;
+			string = "abc_bcd";
+			patternString = "^(?!Os_).*";
+			caseSensitive = true;
+			expectedMatches = true;
 
-        } else {
+		} else if (input == 101) {
+
+			string = "abcd";
+			patternString = "()";
+			caseSensitive = false;
+			expectedMatches = false;
+
+		} else {
 			throw new RuntimeException();
 		}
 

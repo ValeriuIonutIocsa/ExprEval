@@ -38,6 +38,7 @@ final class AppStartEvalExpr {
 		String output = null;
 		try {
 			if (functions == null) {
+
 				functions = new Scanner(Objects.requireNonNull(
 						Thread.currentThread().getContextClassLoader()
 								.getResourceAsStream("com/personal/scripts/gen/eval_expr/functions.js")),
@@ -49,7 +50,7 @@ final class AppStartEvalExpr {
 				output = outputObj.toString();
 			}
 
-		} catch (final Exception ignored) {
+		} catch (final Throwable ignored) {
 		}
 		return output;
 	}

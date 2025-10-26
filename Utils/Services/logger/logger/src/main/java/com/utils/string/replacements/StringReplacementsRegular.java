@@ -3,19 +3,17 @@ package com.utils.string.replacements;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.Strings;
 
 import com.utils.string.StrUtils;
 
 public class StringReplacementsRegular implements StringReplacements {
 
-	private final List<String> searchList;
-	private final List<String> replacementList;
+	private final List<StringReplacementsRegularData> stringReplacementsRegularDataList;
 
 	public StringReplacementsRegular() {
 
-		searchList = new ArrayList<>();
-		replacementList = new ArrayList<>();
+		stringReplacementsRegularDataList = new ArrayList<>();
 	}
 
 	@Override
@@ -23,23 +21,23 @@ public class StringReplacementsRegular implements StringReplacements {
 			final String searchString,
 			final String replacementString) {
 
-		searchList.add(searchString);
-		replacementList.add(replacementString);
+		final StringReplacementsRegularData stringReplacementsRegularData =
+				new StringReplacementsRegularData(searchString, replacementString);
+		stringReplacementsRegularDataList.add(stringReplacementsRegularData);
 	}
 
 	@Override
 	public String performReplacements(
-			final String strParam) {
+			final String str) {
 
-		String str = strParam;
-		final int replacementCount = Math.min(searchList.size(), replacementList.size());
-		for (int i = 0; i < replacementCount; i++) {
+		String resultStr = str;
+		for (final StringReplacementsRegularData stringReplacementsRegularData : stringReplacementsRegularDataList) {
 
-			final String searchString = searchList.get(i);
-			final String replacementString = replacementList.get(i);
-			str = StringUtils.replace(str, searchString, replacementString);
+			final String searchString = stringReplacementsRegularData.searchString();
+			final String replacementString = stringReplacementsRegularData.replacementString();
+			resultStr = Strings.CS.replace(resultStr, searchString, replacementString);
 		}
-		return str;
+		return resultStr;
 	}
 
 	@Override

@@ -1,6 +1,8 @@
 package com.utils.string.characters;
 
-import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.Strings;
+
+import com.utils.annotations.ApiMethod;
 
 public final class SpecialCharacterUtils {
 
@@ -11,10 +13,11 @@ public final class SpecialCharacterUtils {
 	private SpecialCharacterUtils() {
 	}
 
+	@ApiMethod
 	public static String createHtmlString(
 			final String string) {
 
-		return StringUtils.replace(string,
+		return Strings.CS.replace(string,
 				String.valueOf(SpecialCharacterUtils.MU), SpecialCharacterUtils.HTML_MU);
 	}
 }

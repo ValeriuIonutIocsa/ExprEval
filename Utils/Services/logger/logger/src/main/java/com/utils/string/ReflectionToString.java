@@ -8,7 +8,7 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.Strings;
 
 final class ReflectionToString {
 
@@ -32,7 +32,7 @@ final class ReflectionToString {
 			final Class<?> cls = obj.getClass();
 			appendClassInfoRec(obj, cls, objList, sb);
 
-		} catch (final Exception ignored) {
+		} catch (final Throwable ignored) {
 		}
 	}
 
@@ -112,12 +112,10 @@ final class ReflectionToString {
 		} else if (fieldValue.getClass().isArray()) {
 			appendArray(fieldValue, objList, sb);
 
-		} else if (fieldValue instanceof Collection<?>) {
-			final Collection<?> collection = (Collection<?>) fieldValue;
+		} else if (fieldValue instanceof final Collection<?> collection) {
 			appendCollection(collection, objList, sb);
 
-		} else if (fieldValue instanceof Map<?, ?>) {
-			final Map<?, ?> map = (Map<?, ?>) fieldValue;
+		} else if (fieldValue instanceof final Map<?, ?> map) {
 			appendMap(map, objList, sb);
 
 		} else {
@@ -221,8 +219,8 @@ final class ReflectionToString {
 		if (partOfJre) {
 
 			String str = obj.toString();
-			str = StringUtils.replace(str, "\n", "\\n");
-			str = StringUtils.replace(str, "\r", "\\r");
+			str = Strings.CS.replace(str, "\n", "\\n");
+			str = Strings.CS.replace(str, "\r", "\\r");
 			sb.append(str);
 
 		} else {

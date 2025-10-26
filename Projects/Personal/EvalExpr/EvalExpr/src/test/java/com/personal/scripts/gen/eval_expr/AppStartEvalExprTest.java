@@ -9,13 +9,15 @@ import org.junit.jupiter.api.DynamicTest;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestFactory;
 
+import com.utils.test.TestInputUtils;
+
 class AppStartEvalExprTest {
 
 	@Test
 	void testMain() {
 
 		final String[] args;
-		final int input = Integer.parseInt("1");
+		final int input = TestInputUtils.parseTestInputNumber("1");
 		if (input == 1) {
 			args = new String[] { "12 + 3" };
 

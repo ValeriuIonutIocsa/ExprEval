@@ -1,29 +1,47 @@
 package com.utils.string.converters;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.Locale;
+
+import com.utils.annotations.ApiMethod;
 
 public final class ConverterDate {
 
-	private final static String SIMPLE_DATE_FORMAT = "yyyy-MMM-dd HH:mm:ss";
+	public final static String DATE_FORMAT = "yyyy-MMM-dd";
 
 	private ConverterDate() {
 	}
 
-	public static String dateToString(
-			final Date date) {
-		return new SimpleDateFormat(SIMPLE_DATE_FORMAT, Locale.US).format(date);
+	@ApiMethod
+	public static LocalDate stringToDateWithFormat(
+			final String dateString,
+			final String dateFormat) {
+
+		LocalDate localDate = null;
+		try {
+			final DateTimeFormatter dateTimeFormatter =
+					DateTimeFormatter.ofPattern(dateFormat).withLocale(Locale.US);
+			localDate = LocalDate.parse(dateString, dateTimeFormatter);
+
+		} catch (final Throwable ignored) {
+		}
+		return localDate;
 	}
 
-	public static Date tryParseDate(
-			final String dateString) {
+	@ApiMethod
+	public static String dateToStringWithFormat(
+			final LocalDate date,
+			final String dateFormat) {
 
-		Date date = null;
+		String dateString = null;
 		try {
-			date = new SimpleDateFormat(SIMPLE_DATE_FORMAT, Locale.US).parse(dateString);
-		} catch (final Exception ignored) {
+			final DateTimeFormatter dateTimeFormatter =
+					DateTimeFormatter.ofPattern(dateFormat).withLocale(Locale.US);
+			dateString = dateTimeFormatter.format(date);
+
+		} catch (final Throwable ignored) {
 		}
-		return date;
+		return dateString;
 	}
 }
